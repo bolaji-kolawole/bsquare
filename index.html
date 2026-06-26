@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bolaji Kolawole — Full Stack Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0A0F1E;
+      --surface: #121929;
+      --card: #1A2438;
+      --border: #1E2D44;
+      --teal: #00D4B4;
+      --teal-dim: rgba(0,212,180,0.12);
+      --amber: #F5A623;
+      --text: #F0EEE9;
+      --muted: #7A8BA0;
+      --subtle: #3A4F6A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(10,15,30,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--teal);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--teal); }
+
+    .nav-cta {
+      background: var(--teal) !important;
+      color: #0A0F1E !important;
+      padding: 0.5rem 1.25rem !important;
+      border-radius: 4px;
+      font-weight: 700 !important;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(0,212,180,0.08) 0%, transparent 70%);
+      top: 5%; right: -150px;
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 860px; }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 2px;
+      background: var(--teal);
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 .name-highlight { color: var(--teal); }
+
+    .hero-terminal {
+      font-family: 'Courier New', monospace;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      min-height: 2rem;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 2px; height: 1.1em;
+      background: var(--teal);
+      animation: blink 1s step-end infinite;
+      vertical-align: text-bottom;
+      margin-left: 2px;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--teal);
+      color: #0A0F1E;
+      padding: 0.85rem 2rem;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: opacity 0.2s, transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .btn-outline {
+      border: 1px solid var(--subtle);
+      color: var(--text);
+      padding: 0.85rem 2rem;
+      border-radius: 4px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-outline:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-1px); }
+
+    .btn-cv {
+      border: 1px solid var(--amber);
+      color: var(--amber);
+      padding: 0.85rem 2rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .btn-cv:hover { background: rgba(245,166,35,0.1); transform: translateY(-1px); }
+
+    .hero-stats {
+      position: absolute;
+      bottom: 3rem;
+      right: 4rem;
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    .stat { text-align: right; }
+    .stat-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--teal);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.2rem;
+    }
+
+    /* SECTIONS */
+    section { padding: 7rem 4rem; }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .section-divider {
+      width: 48px; height: 3px;
+      background: var(--teal);
+      margin-bottom: 3.5rem;
+    }
+
+    /* ABOUT */
+    #about { background: var(--surface); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+      max-width: 1100px;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+
+    .about-text p strong { color: var(--text); font-weight: 600; }
+
+    .about-links {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .about-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      color: var(--teal);
+      text-decoration: none;
+      border: 1px solid var(--teal-dim);
+      padding: 0.4rem 0.9rem;
+      border-radius: 3px;
+      transition: background 0.2s;
+    }
+    .about-link:hover { background: var(--teal-dim); }
+
+    .about-link.cv-link {
+      color: var(--amber);
+      border-color: rgba(245,166,35,0.2);
+    }
+    .about-link.cv-link:hover { background: rgba(245,166,35,0.08); }
+
+    .cert-badge {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--amber);
+      padding: 1.1rem 1.4rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .cert-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .cert-sub { font-size: 0.78rem; color: var(--muted); }
+
+    /* SKILLS */
+    #skills { background: var(--bg); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.25rem;
+      max-width: 1100px;
+    }
+
+    .skill-group {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.6rem;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .skill-group:hover { border-color: var(--teal); transform: translateY(-3px); }
+
+    .skill-group-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .skill-tag {
+      font-size: 0.78rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.28rem 0.7rem;
+      border-radius: 3px;
+    }
+
+    /* PROJECTS */
+    #projects { background: var(--surface); }
+
+    .projects-filter {
+      display: flex;
+      gap: 0.6rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover, .filter-btn.active { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.75rem;
+      max-width: 1200px;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--teal), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .project-card:hover { border-color: var(--teal); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+    .project-card:hover::before { opacity: 1; }
+
+    .project-card[data-type="mobile"]::before {
+      background: linear-gradient(90deg, var(--amber), transparent);
+    }
+    .project-card[data-type="mobile"]:hover { border-color: var(--amber); }
+
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .project-icon {
+      width: 44px; height: 44px;
+      background: var(--teal-dim);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .project-icon.mobile-icon { background: rgba(245,166,35,0.12); }
+
+    .project-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+      background: rgba(245,166,35,0.12);
+      color: var(--amber);
+      border: 1px solid rgba(245,166,35,0.25);
+    }
+
+    .project-links { display: flex; gap: 0.5rem; align-items: center; }
+
+    .project-link {
+      width: 34px; height: 34px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .project-link:hover { color: var(--teal); border-color: var(--teal); }
+
+    .project-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .project-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.68;
+      flex: 1;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tech-pill {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--teal);
+      background: var(--teal-dim);
+      padding: 0.22rem 0.6rem;
+      border-radius: 3px;
+    }
+
+    .tech-pill.amber {
+      color: var(--amber);
+      background: rgba(245,166,35,0.1);
+    }
+
+    /* EXPERIENCE */
+    #experience { background: var(--bg); }
+
+    .timeline { max-width: 780px; }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+      position: relative;
+    }
+
+    .timeline-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 140px;
+      top: 28px; bottom: -3.5rem;
+      width: 1px;
+      background: var(--border);
+      transform: translateX(-50%);
+    }
+
+    .timeline-date {
+      font-size: 0.76rem;
+      color: var(--muted);
+      font-weight: 500;
+      padding-top: 0.25rem;
+      text-align: right;
+      line-height: 1.5;
+    }
+
+    .timeline-tag {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.45rem;
+      border-radius: 2px;
+      margin-top: 0.35rem;
+    }
+
+    .tag-intern { background: rgba(245,166,35,0.12); color: var(--amber); }
+    .tag-full { background: var(--teal-dim); color: var(--teal); }
+
+    .timeline-dot {
+      width: 10px; height: 10px;
+      background: var(--teal);
+      border-radius: 50%;
+      position: absolute;
+      left: 140px;
+      top: 6px;
+      transform: translateX(-50%);
+      box-shadow: 0 0 0 4px var(--teal-dim);
+    }
+
+    .timeline-content { padding-left: 1.5rem; }
+
+    .timeline-role {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 0.15rem;
+    }
+
+    .timeline-company {
+      font-size: 0.82rem;
+      color: var(--teal);
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+    }
+
+    .timeline-desc { list-style: none; }
+    .timeline-desc li {
+      font-size: 0.86rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 0.3rem;
+      padding-left: 0.9rem;
+      position: relative;
+    }
+    .timeline-desc li::before { content: '→'; color: var(--teal); position: absolute; left: 0; font-size: 0.72rem; top: 4px; }
+
+    /* CONTACT */
+    #contact { background: var(--surface); }
+
+    .contact-inner { max-width: 680px; }
+
+    .contact-inner p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.1rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-card:hover { border-color: var(--teal); transform: translateY(-2px); }
+
+    .contact-card-icon { font-size: 1.2rem; }
+    .contact-label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .contact-value { font-size: 0.88rem; color: var(--text); font-weight: 500; }
+
+    .cv-download-block {
+      background: var(--card);
+      border: 1px solid rgba(245,166,35,0.3);
+      border-radius: 10px;
+      padding: 1.75rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .cv-download-text .cv-dl-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+    .cv-download-text .cv-dl-sub { font-size: 0.8rem; color: var(--muted); }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    footer .footer-left { font-family: 'Syne', sans-serif; font-weight: 800; color: var(--teal); }
+    footer .footer-right { font-size: 0.78rem; color: var(--muted); }
+
+    /* FADE IN */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      section, #hero { padding: 5rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-stats { position: static; margin-top: 3rem; flex-wrap: wrap; gap: 1.5rem; }
+      .stat { text-align: left; }
+      footer { flex-direction: column; gap: 0.5rem; padding: 1.5rem; text-align: center; }
+      .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .timeline-item::after { display: none; }
+      .timeline-dot { display: none; }
+      .timeline-date { text-align: left; }
+      .timeline-content { padding-left: 0; }
+      .cv-download-block { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cursor { animation: none !important; }
+      .fade-in { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">BK</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="Bolaji_Kolawole_CV.pdf" download class="nav-cta">Download CV</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Open to remote opportunities</div>
+    <h1>
+      I'm <span class="name-highlight">Bolaji Kolawole</span>,<br/>
+      Full Stack &amp; Platform Engineer.
+    </h1>
+    <div class="hero-terminal">
+      <span id="typed-text"></span><span class="cursor"></span>
+    </div>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+      <a href="Bolaji_Kolawole_CV.pdf" download class="btn-cv">⬇ Download CV</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-number">5+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">8+</div>
+      <div class="stat-label">Projects Shipped</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">4+</div>
+      <div class="stat-label">Companies</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label fade-in">About</div>
+  <h2 class="fade-in">Engineer by craft,<br/>builder by instinct.</h2>
+  <div class="section-divider fade-in"></div>
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p>I'm a <strong>Full Stack &amp; Platform Engineer</strong> with 5+ years of experience — starting from an internship — building scalable, transaction-heavy software systems across payments, e-commerce, logistics, and operational platforms.</p>
+      <p>My core stack spans <strong>TypeScript, Node.js, and React</strong> on the JavaScript side, and <strong>PHP with Laravel</strong> on the backend — giving me the flexibility to architect clean APIs and resilient server-side systems across different ecosystems.</p>
+      <p>I also build <strong>cross-platform mobile apps</strong> with React Native, shipping consistent experiences across iOS and Android from a single codebase.</p>
+      <p>I've owned products end-to-end: from shaping product requirements and system architecture to deployment, monitoring, and long-term support. I care deeply about <strong>reliability, observability, and developer experience</strong>.</p>
+      <p>Currently based in <strong>Lagos, Nigeria</strong> — open to remote roles and collaborations worldwide.</p>
+      <div class="about-links">
+        <a href="https://github.com/bolaji-kolawole" target="_blank" rel="noopener" class="about-link">⌥ GitHub</a>
+        <a href="https://www.linkedin.com/in/bolajikolawole/" target="_blank" rel="noopener" class="about-link">↗ LinkedIn</a>
+        <a href="mailto:bolaji.kolawole@outlook.com" class="about-link">✉ Email</a>
+        <a href="Bolaji_Kolawole_CV.pdf" download class="about-link cv-link">⬇ Download CV</a>
+      </div>
+    </div>
+    <div class="fade-in">
+      <div class="section-label" style="margin-bottom:1.25rem;">Education &amp; Credentials</div>
+      <div class="cert-badge">
+        <div class="cert-title">Universal AI Certification</div>
+        <div class="cert-sub">Artificial Intelligence — Machine Learning &amp; AI Systems</div>
+      </div>
+      <div class="cert-badge">
+        <div class="cert-title">BSc Computer Science</div>
+        <div class="cert-sub">National Open University of Nigeria, Lagos · 2019–Present</div>
+      </div>
+      <div class="cert-badge">
+        <div class="cert-title">National Diploma</div>
+        <div class="cert-sub">The Polytechnic of Ibadan · 2015–2017</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label fade-in">Skills</div>
+  <h2 class="fade-in">Tech Stack</h2>
+  <div class="section-divider fade-in"></div>
+  <div class="skills-grid">
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">⬡ Languages</div>
+      <div class="skill-tags">
+        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">PHP</span>
+        <span class="skill-tag">Python</span>
+      </div>
+    </div>
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">◈ Frontend</div>
+      <div class="skill-tags">
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">Next.js</span>
+        <span class="skill-tag">Tailwind CSS</span>
+      </div>
+    </div>
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">📱 Mobile</div>
+      <div class="skill-tags">
+        <span class="skill-tag">React Native</span>
+        <span class="skill-tag">Tailwind (NativeWind)</span>
+        <span class="skill-tag">Expo</span>
+        <span class="skill-tag">iOS &amp; Android</span>
+      </div>
+    </div>
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">⟳ Backend — JS</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">Express.js</span>
+        <span class="skill-tag">REST APIs</span>
+        <span class="skill-tag">Webhooks</span>
+        <span class="skill-tag">Event-driven</span>
+      </div>
+    </div>
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">⟳ Backend — PHP</div>
+      <div class="skill-tags">
+        <span class="skill-tag">PHP</span>
+        <span class="skill-tag">Laravel</span>
+        <span class="skill-tag">Eloquent ORM</span>
+        <span class="skill-tag">Artisan</span>
+        <span class="skill-tag">Queue / Jobs</span>
+      </div>
+    </div>
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">⊙ APIs &amp; Integrations</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Paystack</span>
+        <span class="skill-tag">Flutterwave</span>
+        <span class="skill-tag">Stripe</span>
+        <span class="skill-tag">Google Maps API</span>
+        <span class="skill-tag">Firebase</span>
+        <span class="skill-tag">Twilio / SMS</span>
+        <span class="skill-tag">OpenAI API</span>
+        <span class="skill-tag">Push Notifications</span>
+      </div>
+    </div>
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">◉ Databases</div>
+      <div class="skill-tags">
+        <span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">MongoDB</span>
+      </div>
+    </div>
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">⬢ Infrastructure</div>
+      <div class="skill-tags">
+        <span class="skill-tag">AWS</span>
+        <span class="skill-tag">CI/CD</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">GitHub Actions</span>
+        <span class="skill-tag">Vercel</span>
+      </div>
+    </div>
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">✦ AI / ML</div>
+      <div class="skill-tags">
+        <span class="skill-tag">TensorFlow</span>
+        <span class="skill-tag">OpenAI APIs</span>
+        <span class="skill-tag">Image Similarity</span>
+        <span class="skill-tag">Vector Search</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label fade-in">Work</div>
+  <h2 class="fade-in">Featured Projects</h2>
+  <div class="section-divider fade-in"></div>
+
+  <div class="projects-filter fade-in">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="web">Web</button>
+    <button class="filter-btn" data-filter="mobile">Mobile</button>
+    <button class="filter-btn" data-filter="ai">AI / ML</button>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- GoWork -->
+    <div class="project-card fade-in" data-type="web" data-tags="web">
+      <div class="project-header">
+        <div class="project-icon">📍</div>
+        <div class="project-links"></div>
+      </div>
+      <div class="project-title">GoWork — Hyper-local Entrepreneur Platform</div>
+      <div class="project-desc">A location-aware marketplace that connects entrepreneurs and service providers with nearby customers in real time. Customers can discover and engage with local businesses within a configurable radius, enabling genuine hyper-local commerce at street level.</div>
+      <div class="project-tech">
+        <span class="tech-pill">PHP</span>
+        <span class="tech-pill">Laravel</span>
+        <span class="tech-pill">Google Maps API</span>
+        <span class="tech-pill">MySQL</span>
+        <span class="tech-pill">Geo-search</span>
+        <span class="tech-pill">Paystack</span>
+      </div>
+    </div>
+
+    <!-- GeoConnect Mobile -->
+    <div class="project-card fade-in" data-type="mobile" data-tags="mobile">
+      <div class="project-header">
+        <div class="project-icon mobile-icon">🗺️</div>
+        <div class="project-links">
+          <span class="project-badge">Mobile App</span>
+        </div>
+      </div>
+      <div class="project-title">GeoConnect — Mobile Commerce App</div>
+      <div class="project-desc">Cross-platform mobile app extending the GoWork hyper-local concept. Customers browse nearby entrepreneurs, place orders, and track deliveries in real time. Entrepreneurs manage their storefronts, products, and orders from their phones with a clean, fast experience.</div>
+      <div class="project-tech">
+        <span class="tech-pill amber">React Native</span>
+        <span class="tech-pill amber">NativeWind</span>
+        <span class="tech-pill amber">Expo</span>
+        <span class="tech-pill">Google Maps API</span>
+        <span class="tech-pill">Firebase</span>
+        <span class="tech-pill">Node.js</span>
+        <span class="tech-pill">Push Notifications</span>
+      </div>
+    </div>
+
+    <!-- Image Search AI -->
+    <div class="project-card fade-in" data-type="ai" data-tags="ai">
+      <div class="project-header">
+        <div class="project-icon">🔍</div>
+        <div class="project-links">
+          <a href="https://github.com/bolaji-kolawole/image-search-ai" target="_blank" rel="noopener" class="project-link" title="GitHub">⌥</a>
+        </div>
+      </div>
+      <div class="project-title">Image Search AI</div>
+      <div class="project-desc">An AI-powered image similarity search engine. Upload or query an image and the system retrieves visually similar results using neural embeddings and vector distance — built for e-commerce catalog intelligence and visual product discovery.</div>
+      <div class="project-tech">
+        <span class="tech-pill">TensorFlow</span>
+        <span class="tech-pill">Vector Search</span>
+        <span class="tech-pill">Python</span>
+        <span class="tech-pill">Machine Learning</span>
+      </div>
+    </div>
+
+    <!-- MindSpace -->
+    <div class="project-card fade-in" data-type="ai" data-tags="ai web">
+      <div class="project-header">
+        <div class="project-icon">🧠</div>
+        <div class="project-links">
+          <a href="https://mind-space-chat.netlify.app/learn" target="_blank" rel="noopener" class="project-link" title="Live">↗</a>
+        </div>
+      </div>
+      <div class="project-title">MindSpace — AI Wellness Platform</div>
+      <div class="project-desc">An AI-powered mental wellness and learning platform. Users explore guided modules, hold reflective conversations powered by OpenAI, and track their progress over time — combining modern NLP with a purposeful, calming experience.</div>
+      <div class="project-tech">
+        <span class="tech-pill">OpenAI API</span>
+        <span class="tech-pill">React</span>
+        <span class="tech-pill">TypeScript</span>
+        <span class="tech-pill">Node.js</span>
+        <span class="tech-pill">Netlify</span>
+      </div>
+    </div>
+
+    <!-- IntraExpress Logistics -->
+    <div class="project-card fade-in" data-type="web" data-tags="web">
+      <div class="project-header">
+        <div class="project-icon">🚚</div>
+        <div class="project-links">
+          <a href="https://intraexpress.ng/" target="_blank" rel="noopener" class="project-link" title="Live Site">↗</a>
+        </div>
+      </div>
+      <div class="project-title">IntraExpress Logistics Platform</div>
+      <div class="project-desc">End-to-end logistics platform with a public-facing landing page and a full-featured admin dashboard. Supports shipment tracking, operations management, and internal tooling — built for reliability and operational clarity at scale.</div>
+      <div class="project-tech">
+        <span class="tech-pill">React</span>
+        <span class="tech-pill">TypeScript</span>
+        <span class="tech-pill">Node.js</span>
+        <span class="tech-pill">MySQL</span>
+        <span class="tech-pill">REST APIs</span>
+      </div>
+    </div>
+
+    <!-- Ecowaste -->
+    <div class="project-card fade-in" data-type="web" data-tags="web">
+      <div class="project-header">
+        <div class="project-icon">♻️</div>
+        <div class="project-links">
+          <a href="https://ecowaste.intraexpress.ng/" target="_blank" rel="noopener" class="project-link" title="Live">↗</a>
+        </div>
+      </div>
+      <div class="project-title">Ecowaste — Smart Waste Management</div>
+      <div class="project-desc">A multi-role operational platform supporting waste pickup scheduling, recycler network management, subscriptions, location-based routing, analytics, and notifications. Designed to scale operations across multiple cities.</div>
+      <div class="project-tech">
+        <span class="tech-pill">React</span>
+        <span class="tech-pill">Node.js</span>
+        <span class="tech-pill">PostgreSQL</span>
+        <span class="tech-pill">Google Maps API</span>
+        <span class="tech-pill">Twilio</span>
+      </div>
+    </div>
+
+    <!-- E-commerce Suite -->
+    <div class="project-card fade-in" data-type="web" data-tags="web ai">
+      <div class="project-header">
+        <div class="project-icon">🛍️</div>
+        <div class="project-links"></div>
+      </div>
+      <div class="project-title">Full E-commerce Suite</div>
+      <div class="project-desc">A complete commerce platform: customer storefront, barcode-powered POS, admin portal, and real-time inventory management. Integrated image similarity search for visual product discovery. Handles catalog, carts, orders, payments, and reporting.</div>
+      <div class="project-tech">
+        <span class="tech-pill">React</span>
+        <span class="tech-pill">Laravel</span>
+        <span class="tech-pill">PHP</span>
+        <span class="tech-pill">MySQL</span>
+        <span class="tech-pill">Paystack</span>
+        <span class="tech-pill">Image AI</span>
+      </div>
+    </div>
+
+    <!-- Payment Reconciliation -->
+    <div class="project-card fade-in" data-type="web" data-tags="web">
+      <div class="project-header">
+        <div class="project-icon">⚡</div>
+        <div class="project-links"></div>
+      </div>
+      <div class="project-title">Webhook Payment Reconciliation Engine</div>
+      <div class="project-desc">A normalized event-processing system for async payment reconciliation. Features idempotency controls, retry orchestration with backoff, transaction state management, and audit-safe persistence — handles delayed, duplicate, and out-of-order provider callbacks reliably.</div>
+      <div class="project-tech">
+        <span class="tech-pill">TypeScript</span>
+        <span class="tech-pill">Node.js</span>
+        <span class="tech-pill">Webhooks</span>
+        <span class="tech-pill">Flutterwave</span>
+        <span class="tech-pill">MySQL</span>
+        <span class="tech-pill">Idempotency</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label fade-in">Experience</div>
+  <h2 class="fade-in">Work History</h2>
+  <div class="section-divider fade-in"></div>
+  <div class="timeline">
+
+    <!-- Intrasoft SWE -->
+    <div class="timeline-item fade-in">
+      <div class="timeline-date">
+        Feb 2024<br/>Present
+        <div><span class="timeline-tag tag-full">Full-time</span></div>
+      </div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-role">Software Engineer</div>
+        <div class="timeline-company">Intrasoft · Remote</div>
+        <ul class="timeline-desc">
+          <li>Designed and built scalable backend services for secure payment processing and real-time transaction verification.</li>
+          <li>Built webhook-driven event processing and reconciliation pipelines handling asynchronous payment provider callbacks safely.</li>
+          <li>Improved API responsiveness and system reliability by identifying architectural bottlenecks and optimizing SQL queries.</li>
+          <li>Owned features end-to-end: architecture, implementation, deployment, monitoring, and production support.</li>
+          <li>Contributed to CI/CD pipelines and deployment workflows to improve release reliability and team velocity.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Intrasoft Full Stack -->
+    <div class="timeline-item fade-in">
+      <div class="timeline-date">
+        Feb 2023<br/>Jan 2024
+        <div><span class="timeline-tag tag-full">Full-time</span></div>
+      </div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-role">Full Stack Engineer</div>
+        <div class="timeline-company">Intrasoft · On-site, Lagos</div>
+        <ul class="timeline-desc">
+          <li>Built internal and client-facing web applications using React, TypeScript, and Node.js.</li>
+          <li>Designed reusable frontend and backend modules to accelerate feature delivery across multiple products.</li>
+          <li>Implemented responsive interfaces and backend services for transaction-heavy operational workflows.</li>
+          <li>Participated in architecture discussions, code reviews, debugging, testing, and production support.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- GoWork -->
+    <div class="timeline-item fade-in">
+      <div class="timeline-date">
+        Aug 2022<br/>Feb 2023
+        <div><span class="timeline-tag tag-full">Full-time</span></div>
+      </div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-role">Web Developer</div>
+        <div class="timeline-company">GoWork · Remote</div>
+        <ul class="timeline-desc">
+          <li>Architected and delivered the GoWork hyper-local entrepreneur marketplace end-to-end using PHP and Laravel.</li>
+          <li>Designed backend systems for payments, subscriptions, inventory management, and order lifecycle workflows.</li>
+          <li>Built scalable APIs for catalogs, carts, transactions, and user management with Paystack and Google Maps integrations.</li>
+          <li>Implemented secure authentication, role-based access control, and authorization flows.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Freelance -->
+    <div class="timeline-item fade-in">
+      <div class="timeline-date">
+        2020<br/>2022
+        <div><span class="timeline-tag tag-full">Freelance</span></div>
+      </div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-role">Freelance Full Stack Developer</div>
+        <div class="timeline-company">Independent · Remote</div>
+        <ul class="timeline-desc">
+          <li>Delivered custom web applications for clients across e-commerce, logistics, and services industries.</li>
+          <li>Built full-stack projects using PHP, Laravel, JavaScript, and MySQL from requirements to deployment.</li>
+          <li>Integrated third-party payment APIs (Paystack, Flutterwave) and SMS/notification services.</li>
+          <li>Managed client relationships, scoped projects, and maintained production applications independently.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Internship -->
+    <div class="timeline-item fade-in">
+      <div class="timeline-date">
+        2019<br/>2020
+        <div><span class="timeline-tag tag-intern">Internship</span></div>
+      </div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-role">Software Developer Intern</div>
+        <div class="timeline-company">Lagos, Nigeria</div>
+        <ul class="timeline-desc">
+          <li>Built and maintained web features using PHP, JavaScript, HTML, and CSS under senior engineer mentorship.</li>
+          <li>Contributed to frontend and backend tasks across live production environments.</li>
+          <li>Gained hands-on experience in databases, API integration, and software development workflows.</li>
+          <li>Delivered small independent features and bug fixes, developing core engineering habits early.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label fade-in">Contact</div>
+  <h2 class="fade-in">Let's build something.</h2>
+  <div class="section-divider fade-in"></div>
+  <div class="contact-inner">
+    <p class="fade-in">I'm open to full-time remote roles, contract work, and interesting technical collaborations. If you're building something ambitious — let's talk.</p>
+    <div class="contact-grid fade-in">
+      <a href="mailto:bolaji.kolawole@outlook.com" class="contact-card">
+        <div class="contact-card-icon">✉</div>
+        <div class="contact-card-text">
+          <div class="contact-label">Email</div>
+          <div class="contact-value">bolaji.kolawole@outlook.com</div>
+        </div>
+      </a>
+      <a href="https://github.com/bolaji-kolawole" target="_blank" rel="noopener" class="contact-card">
+        <div class="contact-card-icon">⌥</div>
+        <div class="contact-card-text">
+          <div class="contact-label">GitHub</div>
+          <div class="contact-value">bolaji-kolawole</div>
+        </div>
+      </a>
+      <a href="https://www.linkedin.com/in/bolajikolawole/" target="_blank" rel="noopener" class="contact-card">
+        <div class="contact-card-icon">↗</div>
+        <div class="contact-card-text">
+          <div class="contact-label">LinkedIn</div>
+          <div class="contact-value">bolajikolawole</div>
+        </div>
+      </a>
+      <a href="tel:+2348078050144" class="contact-card">
+        <div class="contact-card-icon">☎</div>
+        <div class="contact-card-text">
+          <div class="contact-label">Phone</div>
+          <div class="contact-value">+234 807 805 0144</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="cv-download-block fade-in">
+      <div class="cv-download-text">
+        <div class="cv-dl-title">Bolaji Kolawole — Curriculum Vitae</div>
+        <div class="cv-dl-sub">Full Stack &amp; Platform Engineer · Lagos, Nigeria · 5+ years experience</div>
+      </div>
+      <a href="Bolaji_Kolawole_CV.pdf" download class="btn-cv">⬇ Download CV</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">BK</div>
+  <div class="footer-right">© 2025 Bolaji Kolawole · Built with precision.</div>
+</footer>
+
+<script>
+  // Typewriter
+  const phrases = [
+    "Building scalable payment systems.",
+    "Engineering reliable APIs with Node.js & Laravel.",
+    "Crafting cross-platform mobile apps.",
+    "Designing event-driven architectures.",
+    "Turning requirements into production-ready systems.",
+  ];
+
+  let phraseIndex = 0, charIndex = 0, deleting = false;
+  const el = document.getElementById("typed-text");
+
+  function type() {
+    const current = phrases[phraseIndex];
+    if (!deleting) {
+      el.textContent = current.slice(0, ++charIndex);
+      if (charIndex === current.length) {
+        deleting = true;
+        setTimeout(type, 1900);
+        return;
+      }
+    } else {
+      el.textContent = current.slice(0, --charIndex);
+      if (charIndex === 0) {
+        deleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+      }
+    }
+    setTimeout(type, deleting ? 38 : 62);
+  }
+  type();
+
+  // Fade-in on scroll
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => e.isIntersecting && e.target.classList.add("visible")),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+
+  // Project filter
+  const filterBtns = document.querySelectorAll(".filter-btn");
+  const cards = document.querySelectorAll(".project-card");
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      filterBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const filter = btn.dataset.filter;
+      cards.forEach(card => {
+        const tags = card.dataset.tags || "";
+        const show = filter === "all" || tags.includes(filter);
+        card.style.transition = "opacity 0.3s, transform 0.3s";
+        card.style.opacity = show ? "1" : "0.2";
+        card.style.pointerEvents = show ? "auto" : "none";
+        card.style.transform = show ? "scale(1)" : "scale(0.97)";
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
